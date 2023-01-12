@@ -129,7 +129,7 @@ rpg.config.length = 17;
 rpg.config.first = FIRST_CHARACTERS.UPPER;
 console.log(rpg.generate());
 rpg.config.first = FIRST_CHARACTERS.SYMBOL;
-rpg.config.length = 7;
+rpg.config.length = 5;
 rpg.config.numeric = false;
 console.log(rpg.generate());
 

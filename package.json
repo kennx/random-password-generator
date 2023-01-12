@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "rollup --config",
-    "dev": "rollup --config --watch --bundleConfigAsCjs"
+    "dev": "rollup --config rollup.config.ts --configPlugin typescript --watch"
   },
   "keywords": [
     "random",
