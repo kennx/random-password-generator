@@ -50,8 +50,7 @@ class PasswordGenerator {
   public generate(): string {
     this.setCharacterSets();
     this.setCharacterLength();
-    const result = this.handleCharacterSets();
-    return result;
+    return this.handleCharacterSets();
   }
 
   private handleCharacterSets(): string {
