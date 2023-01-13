@@ -4,32 +4,8 @@ import {
   SYMBOL_CHARACTERS,
   UPPER_CHARACTERS,
 } from './character-sets';
-import { IConfig, FIRST_CHARACTERS, ICharacterSet } from './types';
-
-declare global {
-  interface String {
-    shuttle(): string;
-  }
-  interface Array<T> {
-    shuttle(): Array<T>;
-  }
-}
-
-Array.prototype.shuttle = function (): Array<any> {
-  if (this.length > 1) {
-    return this.sort(() => Math.random() - Math.random());
-  }
-  return this;
-};
-
-String.prototype.shuttle = function (): string {
-  const _arr = this.split('');
-  if (_arr.length > 0 && !!_arr.join('').trim()) {
-    const _sortArr = _arr.shuttle();
-    return _sortArr.join('');
-  }
-  return _arr.join();
-};
+import { FIRST_CHARACTERS } from './enum';
+import { IConfig, ICharacterSet } from './index.d';
 
 class PasswordGenerator {
   config: IConfig = {
@@ -59,7 +35,7 @@ class PasswordGenerator {
     let _first = '';
     const _sets = this.characterSets.filter((set) => set.active);
     _sets.map((set) => {
-      _str = set.characters.shuttle().substring(0, set.size!);
+      _str = this.shuttleString(set.characters).substring(0, set.size!);
       if (!set.first) {
         result += _str;
       } else {
@@ -72,9 +48,9 @@ class PasswordGenerator {
         }
       }
     });
-    _str = _str.shuttle();
+    _str = this.shuttleString(_str);
     result += _str;
-    return _first + result.shuttle();
+    return _first + this.shuttleString(result);
   }
 
   private setCharacterLength() {
@@ -115,6 +91,25 @@ class PasswordGenerator {
       active: this.config.symbol,
       first: this.config.first === FIRST_CHARACTERS.SYMBOL,
     });
+  }
+
+  _shuttle = (array: Array<string>) => {
+    return array.sort(() => Math.random() - Math.random());
+  };
+
+  private shuttleArray(array: Array<any>): Array<any> {
+    if (array.length > 1) {
+      return array.sort(() => Math.random() - Math.random());
+    }
+    return array;
+  }
+
+  private shuttleString(characters: string): string {
+    if (characters && characters.length > 1) {
+      const _array = characters.split('');
+      return this.shuttleArray(_array).join('');
+    }
+    return characters;
   }
 }
 
