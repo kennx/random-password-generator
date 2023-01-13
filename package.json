@@ -4,7 +4,7 @@
   "description": "随机密码生成器",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "rollup --config",
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
     "dev": "rollup --config rollup.config.ts --configPlugin typescript --watch"
   },
   "keywords": [

@@ -60,11 +60,10 @@ class PasswordGenerator {
     let _first = '';
     const _sets = this.characterSets.filter((set) => set.active);
     _sets.map((set) => {
+      _str = set.characters.shuttle().substring(0, set.size!);
       if (!set.first) {
-        const _characters = set.characters.shuttle().substring(0, set.size!);
-        result += _characters;
+        result += _str;
       } else {
-        _str = set.characters.shuttle().substring(0, set.size!);
         if (set.size && set.size > 1) {
           _first = _str.substring(0, 1);
           _str = _str.substring(1, _str.length);
@@ -76,16 +75,13 @@ class PasswordGenerator {
     });
     _str = _str.shuttle();
     result += _str;
-    result = _first + result.shuttle();
-    return result;
+    return _first + result.shuttle();
   }
 
   private setCharacterLength() {
     const _sets = this.characterSets.filter((set) => set.active);
-    const _setsSize = _sets.length;
-    const _length = this.config.length;
-    const _average = Math.floor(_length / _setsSize);
-    const _resto = _length % _setsSize;
+    const _average = Math.floor(this.config.length / _sets.length);
+    const _resto = this.config.length % _sets.length;
     _sets.map((set) => (set.size = _average));
     if (!!_resto) {
       for (let i = _resto; i > 0; i--) {
