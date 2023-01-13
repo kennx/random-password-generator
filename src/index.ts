@@ -15,6 +15,7 @@ class PasswordGenerator {
     numeric: true,
     symbol: true,
     first: FIRST_CHARACTERS.DEFAULT,
+    size: 1,
   };
   private characterSets: Array<ICharacterSet> = [];
   constructor(config?: IConfig) {

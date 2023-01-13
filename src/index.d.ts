@@ -7,6 +7,7 @@ export interface IConfig {
   numeric: boolean;
   symbol: boolean;
   first: FIRST_CHARACTERS;
+  size?: number;
 }
 
 
